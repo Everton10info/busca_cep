@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               load = true;
                             });
-                            await Future.delayed(const Duration(seconds: 2));
+
                             controller
                                 .getCep(controller.fieldCep.text)
                                 .then((value) {
