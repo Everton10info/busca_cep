@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "26f320d3-9f65-40c0-b175-5e96abeff8ee",
+    "colId": "5d403f91-1254-418a-92ae-dc50443322e3",
+    "containerId": "",
+    "name": "search-cep",
+    "url": "https://viacep.com.br/ws/96810280/json",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-11-09T19:32:24.528Z",
+    "modified": "2022-11-09T19:33:06.633Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
