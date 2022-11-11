@@ -32,7 +32,7 @@ extension AppColorsExtension on AppColors {
       case AppColors.grey:
         return const Color(0xffCCCCCC);
       case AppColors.red:
-        return const Color(0xffBF3030);
+        return const Color(0xffFD7171);
       case AppColors.white:
         return const Color(0xffffffff);
       default:

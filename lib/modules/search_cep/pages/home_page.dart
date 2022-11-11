@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../shared/services/http_client.dart';
 import '../../../shared/theme/app_colors.dart';
 import '../controllers/search_controller.dart';
-import '../models/cep_model.dart';
 import '../repositories/repository.dart';
 import 'result_page.dart';
 
@@ -18,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool load = false;
+  final _formKey = GlobalKey<FormState>();
   HomeController controller = HomeController(
     HomeRepository(ClientHttp()),
   );
@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
                       Text('CEP', style: AppFonts.headline24Bold.getFont),
                       const SizedBox(height: 16),
                       Form(
+                        key: _formKey,
                         child: TextFormField(
                           controller: controller.fieldCep,
                           style: const TextStyle(
@@ -65,6 +66,12 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Digite um cep, por favor!';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const Spacer(),
@@ -78,19 +85,53 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )),
                           onPressed: () async {
-                            setState(() {
-                              load = true;
-                            });
-
-                            controller
-                                .getCep(controller.fieldCep.text)
-                                .then((value) {
+                            if (_formKey.currentState!.validate()) {
                               setState(() {
-                                load = false;
+                                load = true;
                               });
-                              Navigator.of(context).pushNamed(ResultPage.result,
-                                  arguments: value as CepModel);
-                            });
+
+                              controller
+                                  .getCep(controller.fieldCep.text)
+                                  .then((value) {
+                                if (value.runtimeType == String) {
+                                  setState(() {
+                                    load = true; // tratar erros
+                                  });
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          backgroundColor:
+                                              AppColors.red.getColor,
+                                          content: Text(
+                                            value,
+                                            textAlign: TextAlign.center,
+                                          )));
+                                  Future.delayed(const Duration(seconds: 5));
+                                  setState(
+                                    () {
+                                      load = false;
+                                    },
+                                  );
+                                } else {
+                                  Navigator.of(context).pushNamed(
+                                      ResultPage.result,
+                                      arguments: value);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          backgroundColor:
+                                              AppColors.green.getColor,
+                                          content: const Text(
+                                            'Endereço encontrado com sucesso!',
+                                            textAlign: TextAlign.center,
+                                          )));
+                                  setState(
+                                    () {
+                                      load = false;
+                                    },
+                                  );
+                                }
+                              });
+                            }
                           },
                           child: const Text(
                             'Pesquisar',

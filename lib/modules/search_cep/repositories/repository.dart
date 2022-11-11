@@ -9,8 +9,11 @@ class HomeRepository {
   );
   Future getData(String cep) async {
     var result = await httpClient.getData(cep);
-    var data = CepModel.fromJson(result);
-    //  debugPrint(data.cep);
-    return data;
+    if (result.runtimeType != String) {
+      var data = CepModel.fromJson(result);
+      return data;
+    } else {
+      return result;
+    }
   }
 }
