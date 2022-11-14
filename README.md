@@ -1,16 +1,12 @@
-# busca_cep
+# Busca CEP
 
-A new Flutter project.
+Aplicativo criado para buscar um determinado CEP e apresnetar seus dados, utilizando [Dio](https://pub.dev/packages/dio) como client http.
 
-## Getting Started
+## Objetivo 
+Este projeto tem como objetivo exercitar a aplicação de templates no flutter, neste caso o template foi criado utilizando a ferramenta de designer [Figma](https://www.figma.com/)
 
-This project is a starting point for a Flutter application.
+### Template 
+[Projeto Figma](https://www.figma.com/file/vzcONm0Tg0i1a2bbb7VTs7/Untitled?node-id=62%3A3&t=rsv8aVzzvPr4zlSD-0)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
