@@ -1,6 +1,6 @@
 # Busca CEP
 
-Aplicativo criado para buscar um determinado CEP e apresnetar seus dados, utilizando [Dio](https://pub.dev/packages/dio) como client http.
+Aplicativo criado para buscar um determinado CEP e apresnetar seus dados, utilizando [Dio](https://pub.dev/packages/dio) como cliente http.
 
 ## Objetivo 
 :bulb: Este projeto tem como objetivo exercitar a aplicação de templates no flutter, neste caso o template foi criado utilizando a ferramenta de designer [Figma](https://www.figma.com/)
