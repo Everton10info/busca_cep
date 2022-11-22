@@ -1,5 +1,6 @@
-import 'package:busca_cep/shared/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'app_colors.dart';
 
 enum AppFonts {
   caption12,
@@ -13,14 +14,6 @@ enum AppFonts {
 }
 
 extension AppFontsExtension on AppFonts {
-  // caption12,
-  //caption16,
-  //caption16Bold,
-  //caption20
-  //caption20Bold
-  //headline24W900,
-  //headline24Bold
-
   TextStyle get getFont {
     switch (this) {
       case AppFonts.caption12:
@@ -53,13 +46,11 @@ extension AppFontsExtension on AppFonts {
           fontWeight: FontWeight.bold,
           color: AppColors.white.getColor,
         );
-
       case AppFonts.headline24W900:
         return const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w900,
         );
-
       case AppFonts.headline24Bold:
         return const TextStyle(
           fontSize: 24,

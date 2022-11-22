@@ -1,6 +1,3 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:busca_cep/shared/services/http_client.dart';
 import 'package:busca_cep/shared/theme/app_colors.dart';
 import 'package:busca_cep/shared/theme/app_fonts.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +8,16 @@ import '../repositories/repository.dart';
 
 class ResultPage extends StatefulWidget {
   static String result = '/result';
-  CepModel data;
+  final CepModel? data;
 
-  ResultPage({super.key, required this.data});
+  const ResultPage({super.key, required this.data});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
-  HomeController c = HomeController(HomeRepository(ClientHttp()));
+  HomeController c = HomeController(HomeRepository());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,265 +32,87 @@ class _ResultPageState extends State<ResultPage> {
           child: Container(
             color: primaryColor,
             child: Table(
-              border: TableBorder(
-                verticalInside: BorderSide(
-                  color: AppColors.white.getColor,
-                  style: BorderStyle.solid,
-                  width: 1.0,
-                ),
-                horizontalInside: BorderSide(
-                  color: AppColors.white.getColor,
-                  style: BorderStyle.solid,
-                  width: 1.0,
-                ),
-                top: BorderSide(
-                  color: AppColors.white.getColor,
-                  style: BorderStyle.solid,
-                  width: 3.0,
-                ),
-                right: BorderSide(
-                  color: AppColors.white.getColor,
-                  style: BorderStyle.solid,
-                  width: 3.0,
-                ),
-                bottom: BorderSide(
-                  color: AppColors.white.getColor,
-                  style: BorderStyle.solid,
-                  width: 3.0,
-                ),
-                left: BorderSide(
-                  color: AppColors.white.getColor,
-                  style: BorderStyle.solid,
-                  width: 3.0,
-                ),
-              ),
+              border: _buildBorder(),
               columnWidths: const <int, TableColumnWidth>{
                 1: FlexColumnWidth(),
                 2: FlexColumnWidth()
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
-                TableRow(
-                  //decoration: BoxDecoration(color: AppColors.grey.getColor),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'CEP: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.cep ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  //decoration: BoxDecoration(color: AppColors.grey.getColor),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Logradouro: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.logradouro ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  // decoration: BoxDecoration(color: AppColors.grey.getColor),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Complemento: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.complemento ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Bairro: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.bairro ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  // decoration: BoxDecoration(color: AppColors.grey.getColor),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Localidade: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.localidade ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'UF: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      padding: const EdgeInsets.all(6),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.uf ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  //decoration: BoxDecoration(color: AppColors.grey.getColor),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'IBGE: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.ibge ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'GUIA: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.cep ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  //decoration: BoxDecoration(color: AppColors.grey.getColor),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DDD: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.ddd ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'SIAFI: ',
-                        textAlign: TextAlign.left,
-                        style: AppFonts.caption20Bold.getFont,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " ${widget.data.siafi ?? ''}",
-                        style: AppFonts.caption16.getFont,
-                      ),
-                    ),
-                  ],
-                ),
+                _buildTabRow('CEP', widget.data!.cep!),
+                _buildTabRow('Logradouro', widget.data!.logradouro!),
+                _buildTabRow('Complemento', widget.data!.complemento!),
+                _buildTabRow('Bairro', widget.data!.bairro!),
+                _buildTabRow('Localidade', widget.data!.uf!),
+                _buildTabRow('UF', widget.data!.uf!),
+                _buildTabRow('IBGE', widget.data!.ibge!),
+                _buildTabRow('GUIA', widget.data!.cep!),
+                _buildTabRow('DDD', widget.data!.ddd!),
+                _buildTabRow('SIAFI', widget.data!.siafi!)
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  _buildBorder() {
+    return TableBorder(
+      verticalInside: BorderSide(
+        color: AppColors.white.getColor,
+        style: BorderStyle.solid,
+        width: 1.0,
+      ),
+      horizontalInside: BorderSide(
+        color: AppColors.white.getColor,
+        style: BorderStyle.solid,
+        width: 1.0,
+      ),
+      top: BorderSide(
+        color: AppColors.white.getColor,
+        style: BorderStyle.solid,
+        width: 3.0,
+      ),
+      right: BorderSide(
+        color: AppColors.white.getColor,
+        style: BorderStyle.solid,
+        width: 3.0,
+      ),
+      bottom: BorderSide(
+        color: AppColors.white.getColor,
+        style: BorderStyle.solid,
+        width: 3.0,
+      ),
+      left: BorderSide(
+        color: AppColors.white.getColor,
+        style: BorderStyle.solid,
+        width: 3.0,
+      ),
+    );
+  }
+
+  _buildTabRow(String label, String result) {
+    return TableRow(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            label,
+            textAlign: TextAlign.left,
+            style: AppFonts.caption20Bold.getFont,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(6),
+          height: 50,
+          alignment: Alignment.centerLeft,
+          child: Text(
+            result,
+            style: AppFonts.caption16.getFont,
+          ),
+        ),
+      ],
     );
   }
 }

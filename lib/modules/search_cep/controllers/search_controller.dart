@@ -10,7 +10,7 @@ class HomeController {
   TextEditingController fieldCep = TextEditingController();
 
   Future getCep(String cep) async {
-    var result = await repository.getData(cep);
+    final result = await repository.getData(cep);
 
     return result;
   }

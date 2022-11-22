@@ -1,19 +1,17 @@
-import '../../../shared/services/http_client.dart';
+import 'dart:convert';
+
+import '../../../shared/services/api.dart';
 import '../models/cep_model.dart';
 
-class HomeRepository {
-  ClientHttp httpClient;
+import 'package:http/http.dart' as http;
 
-  HomeRepository(
-    this.httpClient,
-  );
+class HomeRepository {
   Future getData(String cep) async {
-    var result = await httpClient.getData(cep);
-    if (result.runtimeType != String) {
-      var data = CepModel.fromJson(result);
-      return data;
+    final response = await http.get(Uri.parse('${ApiCep.urlBase}$cep/json'));
+    if (response.statusCode == 200) {
+      return CepModel.fromJson(jsonDecode(response.body));
     } else {
-      return result;
+      return 'Servidor indisponível, tente novamente mais tarde';
     }
   }
 }

@@ -22,9 +22,13 @@ class _MyWidgetState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: Image.asset('assets/images/logo_cep.png'),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Center(
+          child: Image.asset('assets/images/logo_cep.png'),
+        ),
+      ),
     );
   }
 }
